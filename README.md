@@ -143,4 +143,9 @@ Printer communication relies on [brother_ql](https://github.com/pklaus/brother_q
 
 ## License
 
-**Pending review before public release.** The applicable licenses and redistribution obligations of included and required dependencies, including `brother_ql`, must be checked before choosing and publishing Brother Studio's license.
+Brother Studio is licensed under the GNU General Public License
+version 3 or later (GPL-3.0-or-later).
+
+See [LICENSE](LICENSE) and [COPYRIGHT](COPYRIGHT) for details.
+
+Third-party dependencies retain their respective licenses.
