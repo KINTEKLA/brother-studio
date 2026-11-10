@@ -22,6 +22,21 @@ HISTORY_DIR = Path(
 IMAGES_DIR = HISTORY_DIR / "images"
 INDEX_FILE = HISTORY_DIR / "prints.json"
 
+def safe_history_image_path(filename):
+    if not isinstance(filename, str):
+        raise ValueError("Invalid history filename")
+
+    import re
+    if not re.fullmatch(r"[0-9a-f]{32}\.png", filename):
+        raise ValueError("Invalid history filename")
+
+    path = IMAGES_DIR / filename
+    if path.is_symlink():
+        raise ValueError("History image cannot be a symbolic link")
+
+    return path
+
+
 def load_history():
     if not INDEX_FILE.exists():
         return []

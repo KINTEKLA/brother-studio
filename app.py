@@ -224,7 +224,7 @@ def get_print_history():
 @app.route("/history/image/<print_id>", methods=["GET"])
 def get_history_image(print_id):
     import json
-    from print_history import INDEX_FILE, load_history, IMAGES_DIR
+    from print_history import INDEX_FILE, load_history, IMAGES_DIR, safe_history_image_path
 
     records = load_history()
     record = next((r for r in records if r["id"] == print_id), None)
@@ -232,7 +232,10 @@ def get_history_image(print_id):
     if record is None:
         return jsonify(message="History image not found."), 404
 
-    image_path = IMAGES_DIR / record["filename"]
+    try:
+        image_path = safe_history_image_path(record["filename"])
+    except ValueError:
+        return jsonify(message="Invalid history image."), 404
 
     if not image_path.is_file():
         return jsonify(message="Image file missing."), 404
@@ -244,7 +247,7 @@ def get_history_image(print_id):
 @app.route("/history/reprint/<print_id>", methods=["POST"])
 def reprint_history_image(print_id):
     import json
-    from print_history import INDEX_FILE, load_history, IMAGES_DIR
+    from print_history import INDEX_FILE, load_history, IMAGES_DIR, safe_history_image_path
 
     records = load_history()
     record = next((r for r in records if r["id"] == print_id), None)
@@ -252,7 +255,10 @@ def reprint_history_image(print_id):
     if record is None:
         return jsonify(message="Saved print not found."), 404
 
-    image_path = IMAGES_DIR / record["filename"]
+    try:
+        image_path = safe_history_image_path(record["filename"])
+    except ValueError:
+        return jsonify(message="Invalid history image."), 404
     if not image_path.is_file():
         return jsonify(message="Saved image is missing."), 404
 
@@ -290,7 +296,7 @@ def reprint_history_image(print_id):
 @app.route("/history/delete", methods=["POST"])
 def delete_history_entries():
     import json
-    from print_history import INDEX_FILE, load_history, IMAGES_DIR
+    from print_history import INDEX_FILE, load_history, IMAGES_DIR, safe_history_image_path
 
     data = request.get_json(silent=True) or {}
     ids = data.get("ids")
@@ -312,9 +318,11 @@ def delete_history_entries():
     INDEX_FILE.write_text(json.dumps(remaining, indent=2))
 
     for record in selected:
-        filename = record["filename"]
-        if Path(filename).name == filename:
-            (IMAGES_DIR / filename).unlink(missing_ok=True)
+        try:
+            image_path = safe_history_image_path(record["filename"])
+            image_path.unlink(missing_ok=True)
+        except ValueError:
+            app.logger.warning("Skipped unsafe history filename")
 
     return jsonify(message=f"Deleted {len(selected)} history entries.")
 
