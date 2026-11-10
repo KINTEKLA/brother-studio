@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brother QL-570 Studio</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<h1>Brother QL-570 Studio</h1>
+<div class="panel studio-panel">
+  <div class="studio-header">
+    <button id="openHistory" type="button" aria-controls="historyScreen" aria-expanded="false">Gallery</button>
+    <button type="button" id="toggleEditing" aria-controls="editingPanel" aria-expanded="true">Hide Adjustments</button>
+    <p>62 mm Continuous Thermal Printing</p>
+    <input type="file" id="image" accept="image/png,image/jpeg">
+  </div>
+
+  <div class="workspace">
+<div class="gallery-area" id="historyScreen" hidden>
+      <div class="gallery-header">
+        <h2>Print History</h2>
+        <p id="historyStatus">Loading history...</p>
+        <button id="deleteSelected" type="button" disabled>
+          Delete Selected
+        </button>
+      </div>
+      <div id="historyList"></div>
+    </div>
+    <div class="preview-area">
+      <div class="preview-heading">
+        <h2>Artwork Preview</h2>
+        <button type="button" id="openCrop" disabled>Crop / Position</button>
+        <button type="button" id="openInspector">
+          Inspect / Zoom
+        </button>
+      </div>
+      <div class="preview-toggle">
+         <button type="button" id="showOriginal">Original</button>
+         <button type="button" id="showProcessed">Processed</button>
+   </div>
+      <div class="preview-container">
+        <img id="preview" alt="Image preview" hidden>
+      </div>
+    </div>
+
+    <div class="editing-area" id="editingPanel">
+      <div class="adjustments-heading">
+        <h2>Image Adjustments</h2>
+        <button type="button" id="resetAdjustments">
+          Reset
+        </button>
+      </div>
+      <div class="method-control">
+        <label for="printOrientation">Print Orientation</label>
+        <select id="printOrientation">
+          <option value="0">Normal</option>
+          <option value="90">Rotate 90° Clockwise</option>
+        </select>
+      </div>
+
+      <div class="method-control">
+        <label for="processingMethod">Processing Method</label>
+        <select id="processingMethod">
+          <option value="threshold">Threshold</option>
+          <option value="floyd">Floyd-Steinberg</option>
+          <option value="line">Line Halftone</option>
+        </select>
+      </div>
+
+      <div id="lineOptions" hidden>
+        <div>
+          <label for="lineSpacing">Line Spacing (px)</label>
+          <div class="precision-control">
+            <button type="button" id="lineSpacingMinus">−</button>
+            <input type="range" id="lineSpacing"
+                   min="3" max="10" step="1" value="6">
+            <button type="button" id="lineSpacingPlus">+</button>
+            <input type="number" id="lineSpacingNumber"
+                   min="3" max="10" step="1" value="6">
+          </div>
+        </div>
+
+        <div>
+          <label for="backgroundCutoff">Background Cutoff</label>
+          <div class="precision-control">
+            <button type="button" id="backgroundCutoffMinus">−</button>
+            <input type="range" id="backgroundCutoff"
+                   min="0" max="255" step="1" value="180">
+            <button type="button" id="backgroundCutoffPlus">+</button>
+            <input type="number" id="backgroundCutoffNumber"
+                   min="0" max="255" step="1" value="180">
+          </div>
+        </div>
+      </div>
+
+
+      <div>
+   <label for="contrast">Contrast</label>
+   <div class="precision-control">
+     <button type="button" id="contrastMinus">−</button>
+     <input type="range" id="contrast" min="0.5" max="3" step="0.1" value="1">
+     <button type="button" id="contrastPlus">+</button>
+     <input type="number" id="contrastNumber"
+         min="0.5" max="3" step="0.1" value="1">
+     <output id="contrastValue" hidden>1.0</output>
+      </div>
+      </div>
+
+      <div>
+  <label for="threshold">Threshold</label>
+  <div class="precision-control">
+    <button type="button" id="thresholdMinus">−</button>
+    <input type="range" id="threshold" min="0" max="255" step="1" value="128">
+    <button type="button" id="thresholdPlus">+</button>
+    <input type="number" id="thresholdNumber"
+           min="0" max="255" step="1" value="128">
+    <output id="thresholdValue" hidden>128</output>
+  </div>
+</div>
+
+      <div>
+        <label hidden><input type="checkbox" id="dither"> Floyd-Steinberg dithering</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <div>
+      <label for="printCopies" class="copies-label">Copies</label>
+      <input id="printCopies" type="number"
+             min="1" max="50" step="1" value="1">
+      <button id="print" disabled>Print & Cut</button>
+      <button id="exportPNG" type="button" disabled>Export PNG</button>
+      
+    </div>
+    <p id="status">Select an image to begin.</p>
+  </div>
+</div>
+
+
+
+<dialog id="inspectDialog" aria-label="Artwork inspector">
+  <div class="inspect-toolbar">
+    <strong>Inspect Artwork</strong>
+
+    <div class="inspect-actions">
+      <button type="button" id="inspectOriginal">Original</button>
+      <button type="button" id="inspectProcessed">Processed</button>
+      <button type="button" id="inspectMinus">−</button>
+      <span id="inspectZoomValue">100%</span>
+      <button type="button" id="inspectPlus">+</button>
+      <button type="button" id="inspectFit">Fit</button>
+      <button type="button" id="inspectActual">100%</button>
+      <button type="button" id="inspectClose">Close</button>
+    </div>
+  </div>
+
+  <div id="inspectStage">
+    <img id="inspectImage" alt="Enlarged artwork" draggable="false">
+  </div>
+
+  <div class="inspect-footer">
+    Drag to pan · Scroll to zoom · Esc to close
+  </div>
+</dialog>
+
+
+<dialog id="cropDialog" aria-label="Crop and position artwork">
+  <div class="crop-toolbar">
+    <strong>Crop / Position</strong>
+    <div class="crop-actions">
+      <button type="button" id="cropZoomOut">− Zoom</button>
+      <button type="button" id="cropZoomIn">+ Zoom</button>
+      <button type="button" id="cropNarrower">Narrower</button>
+      <button type="button" id="cropWider">Wider</button>
+      <button type="button" id="cropShorter">Shorter</button>
+      <button type="button" id="cropTaller">Taller</button>
+      <button type="button" id="cropReset">Reset Crop</button>
+    </div>
+  </div>
+
+  <div id="cropStage">
+    <img id="cropImage" alt="Original artwork for cropping"
+         draggable="false">
+    <div id="cropFrame"></div>
+  </div>
+
+  <div class="crop-bottom">
+    <span>Drag artwork to position · Scroll to zoom · Adjust crop height</span>
+    <div class="crop-actions">
+      <button type="button" id="cropCancel">Cancel</button>
+      <button type="button" id="cropApply">Apply Crop</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="/static/studio.js"></script>
+</body>
+</html>

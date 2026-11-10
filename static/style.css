@@ -1,0 +1,801 @@
+/* BROTHER STUDIO — INTERFACE v2 */
+
+:root {
+  --canvas: #eae8e2;
+  --panel: #ffffff;
+  --surface: #f4f3ef;
+  --border: #d3d0c8;
+  --text: #242424;
+  --muted: #77756f;
+  --accent: #252525;
+  --radius: 7px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  max-width: 1400px;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  background: var(--canvas);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+
+/* TYPOGRAPHY */
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+/* GENERAL CONTROLS */
+
+button {
+  padding: 9px 15px;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  background: #444;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #777;
+  outline-offset: 2px;
+}
+
+/* MAIN APPLICATION */
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.studio-panel {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOP TOOLBAR */
+
+.studio-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.studio-header p {
+  order: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.studio-header input[type="file"] {
+  order: 2;
+  margin: 0;
+  max-width: 100%;
+  font-size: 12px;
+}
+
+#openHistory {
+  order: 3;
+  margin-left: auto;
+}
+
+#toggleEditing {
+  order: 4;
+}
+
+#openHistory,
+#toggleEditing {
+  background: white;
+  color: var(--text);
+  border-color: var(--border);
+  padding: 8px 12px;
+}
+
+#openHistory:hover,
+#toggleEditing:hover {
+  background: var(--surface);
+}
+
+/* WORKSPACE */
+
+.workspace {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.workspace.editing-collapsed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.workspace.gallery-open {
+  grid-template-columns: 250px minmax(0, 1fr) 300px;
+}
+
+.workspace.gallery-open.editing-collapsed {
+  grid-template-columns: 250px minmax(0, 1fr);
+}
+
+/* ARTWORK PREVIEW */
+
+.preview-area {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.preview-toggle {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.preview-toggle button {
+  padding: 7px 15px;
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.preview-toggle button.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.preview-toggle button:disabled {
+  opacity: 0.4;
+}
+
+.preview-container {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 14px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.preview-container img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* IMAGE ADJUSTMENTS */
+
+.editing-area {
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 18px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.method-control {
+  margin-bottom: 20px;
+}
+
+#processingMethod {
+  width: 100%;
+  padding: 10px;
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font: inherit;
+}
+
+#lineOptions {
+  margin-top: 12px;
+}
+
+#lineOptions > div {
+  margin-bottom: 16px;
+}
+
+/* PRECISION CONTROLS */
+
+.precision-control {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 6px 0 19px;
+}
+
+.precision-control button {
+  flex: 0 0 30px;
+  min-width: 30px;
+  height: 31px;
+  padding: 0;
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 16px;
+}
+
+.precision-control button:hover:not(:disabled) {
+  background: #e4e2dc;
+}
+
+.precision-control input[type="range"] {
+  flex: 1;
+  min-width: 35px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.precision-control input[type="number"] {
+  width: 54px;
+  min-width: 54px;
+  height: 31px;
+  padding: 4px;
+  margin: 0;
+  text-align: center;
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 12px;
+}
+
+/* PRINT HISTORY GALLERY */
+
+.gallery-area {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.gallery-header {
+  flex-shrink: 0;
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.gallery-header h2 {
+  margin: 0 0 7px;
+}
+
+.gallery-header p {
+  margin: 5px 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.gallery-header button {
+  padding: 7px 11px;
+}
+
+#historyList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+#historyList img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#historyList button {
+  padding: 7px 11px;
+  margin: 4px 0;
+}
+
+/* BOTTOM ACTION BAR */
+
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-shrink: 0;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.action-bar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#print {
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+/* SMALLER SCREENS */
+
+@media (max-width: 800px) {
+  body {
+    height: auto;
+    min-height: 100dvh;
+    overflow: auto;
+    padding: 10px;
+  }
+
+  .studio-panel {
+    flex: none;
+  }
+
+  .workspace,
+  .workspace.editing-collapsed,
+  .workspace.gallery-open,
+  .workspace.gallery-open.editing-collapsed {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .preview-container {
+    min-height: 300px;
+    max-height: 65vh;
+  }
+
+  .editing-area {
+    max-height: 65vh;
+  }
+
+  .gallery-area {
+    max-height: 60vh;
+  }
+
+  #openHistory {
+    margin-left: 0;
+  }
+
+  .action-bar {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* BROTHER STUDIO — ARTWORK INSPECTOR */
+
+.preview-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-heading h2 {
+  margin-bottom: 10px;
+}
+
+#openInspector {
+  padding: 5px 11px;
+  margin-bottom: 9px;
+  background: white;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+#openInspector:hover {
+  background: var(--surface);
+}
+
+#preview:not([hidden]) {
+  cursor: zoom-in;
+}
+
+#inspectDialog {
+  width: min(1100px, 96vw);
+  height: 92vh;
+  height: 92dvh;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--text);
+  overflow: hidden;
+}
+
+#inspectDialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+#inspectDialog::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.inspect-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.inspect-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.inspect-actions button {
+  padding: 7px 10px;
+  background: white;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.inspect-actions button.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+#inspectZoomValue {
+  min-width: 50px;
+  text-align: center;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+#inspectStage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #e9e9e9;
+  cursor: grab;
+  touch-action: none;
+}
+
+#inspectStage.dragging {
+  cursor: grabbing;
+}
+
+#inspectImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: center center;
+  image-rendering: pixelated;
+}
+
+.inspect-footer {
+  flex-shrink: 0;
+  padding: 9px 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Reset adjustments control */
+
+.adjustments-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.adjustments-heading h2 {
+  margin: 0;
+}
+
+#resetAdjustments {
+  padding: 5px 10px;
+  background: white;
+  color: var(--text);
+  border-color: var(--border);
+  font-size: 12px;
+}
+
+#resetAdjustments:hover {
+  background: #e4e2dc;
+}
+
+
+/* BROTHER STUDIO — COMPACT GALLERY */
+
+#historyList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 10px;
+  padding: 10px;
+}
+
+.history-card {
+  position: relative;
+  min-width: 0;
+  padding: 7px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+#historyList .history-thumbnail {
+  display: block;
+  width: 100%;
+  height: 105px;
+  max-height: none;
+  object-fit: contain;
+  margin: 0;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.history-thumbnail:hover {
+  opacity: 0.8;
+}
+
+.history-details {
+  margin: 7px 0 5px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.history-card .historySelect {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  margin: 0;
+  z-index: 1;
+  accent-color: var(--accent);
+}
+
+#historyList .history-card button {
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 6px;
+  font-size: 11px;
+  background: white;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+#historyList .history-card button:hover {
+  background: var(--surface);
+}
+
+
+/* BROTHER STUDIO — EMPTY STATE CLEANUP */
+
+#preview[hidden],
+#editingPanel label[hidden] {
+  display: none !important;
+}
+
+#exportPNG:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+/* Brother Studio — Crop / Position */
+
+#openCrop {
+  padding: 5px 11px;
+  margin-bottom: 9px;
+  background: white;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+#openCrop:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#cropDialog {
+  width: min(1100px, 96vw);
+  height: 92dvh;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--text);
+  overflow: hidden;
+}
+
+#cropDialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+#cropDialog::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.crop-toolbar,
+.crop-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+}
+
+.crop-toolbar {
+  border-bottom: 1px solid var(--border);
+}
+
+.crop-bottom {
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.crop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.crop-actions button {
+  padding: 7px 11px;
+  background: white;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+#cropApply {
+  background: #222;
+  color: white;
+}
+
+#cropStage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #3a3a3a;
+  cursor: grab;
+  touch-action: none;
+}
+
+#cropStage.dragging {
+  cursor: grabbing;
+}
+
+#cropImage {
+  position: absolute;
+  display: block;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+#cropFrame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid white;
+  outline: 1px solid #222;
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+
+/* Brother Studio — Copies */
+
+.copies-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+#printCopies {
+  width: 65px;
+  min-width: 65px;
+  padding: 7px;
+  margin-right: 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: white;
+  color: var(--text);
+  font-size: 13px;
+  text-align: center;
+}

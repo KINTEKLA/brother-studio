@@ -1,0 +1,26 @@
+# Python virtual environments
+.venv/
+venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# User artwork and print history
+history/
+*.png
+*.jpg
+*.jpeg
+
+# Local configuration
+.env
+config.toml
+
+# Temporary files
+*.tmp
+*.log
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
