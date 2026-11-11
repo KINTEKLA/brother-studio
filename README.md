@@ -1,5 +1,16 @@
 # Brother Studio
 
+
+## Screenshots
+
+### Main interface
+
+![Brother Studio main interface showing line halftone processing](docs/images/Main.png)
+
+### Artwork inspector
+
+![Brother Studio artwork inspector showing magnified halftone artwork](docs/images/PopOutInspector.png)
+
 Brother Studio is a browser-based application for preparing and printing experimental black-and-white artwork with Brother QL thermal label printers. It is intended for creative printmaking rather than conventional office-label design.
 
 The application runs locally on a Linux computer. Its browser interface supports image processing, previewing, cropping, printing, and a saved Print History gallery. Once installed, normal operation does not require an internet connection.

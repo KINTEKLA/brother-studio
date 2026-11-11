@@ -24,3 +24,7 @@ config.toml
 .vscode/
 .idea/
 .DS_Store
+
+# Allow screenshots in project documentation
+!docs/images/
+!docs/images/*.png
