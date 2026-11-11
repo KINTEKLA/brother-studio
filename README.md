@@ -49,10 +49,10 @@ On Debian-based systems, Python virtual environment support may need to be insta
 
 ## Install and run
 
-When the public repository is available, clone it using its actual GitHub URL:
+Clone the public repository:
 
 ```bash
-git clone https://github.com/USERNAME/brother-studio.git
+git clone https://github.com/KINTEKLA/brother-studio.git
 cd brother-studio
 ```
 
