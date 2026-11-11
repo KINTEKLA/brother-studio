@@ -28,3 +28,6 @@ config.toml
 # Allow screenshots in project documentation
 !docs/images/
 !docs/images/*.png
+
+# Allow optimized sample photographs
+!docs/images/*-web.jpeg

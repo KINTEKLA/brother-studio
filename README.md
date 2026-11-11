@@ -15,6 +15,15 @@ Brother Studio is a browser-based application for preparing and printing experim
 
 The application runs locally on a Linux computer. Its browser interface supports image processing, previewing, cropping, printing, and a saved Print History gallery. Once installed, normal operation does not require an internet connection.
 
+## Sample Prints
+
+Examples of physical artwork printed using Brother Studio and the Brother QL-570.
+
+![Brother Studio physical print sample 001](docs/images/sample-001-web.jpeg)
+
+![Brother Studio physical print sample 002](docs/images/sample-002-web.jpeg)
+
+
 ## Features
 
 - Upload PNG and JPEG images
