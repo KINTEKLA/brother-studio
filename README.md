@@ -155,9 +155,21 @@ Brother Studio is written in Python, Flask, Pillow, HTML, CSS, and JavaScript. I
 
 The direct Python dependencies are listed in `requirements.txt` and are installed by `install.sh`. No virtual environment or personal data should be committed to the repository.
 
-## Credits
+## About the Development
 
-Brother Studio was created through substantial AI-assisted programming with ChatGPT. The project's design choices, feature direction, hands-on testing, and validation were directed by its creator.
+Brother Studio began as an experiment in seeing what I could create with the assistance of AI, despite having very little programming experience.
+
+Most of the code was generated with ChatGPT. My involvement centered on developing the concept, directing the design, testing functionality, identifying problems, and working through revisions until the application behaved as intended.
+
+I wouldn't claim that building Brother Studio taught me to code in the traditional sense. What it did teach me was that creating software with AI involves considerably more than writing a prompt and receiving a finished application.
+
+The process required ongoing experimentation, troubleshooting, communication, and hands-on interaction with both the AI and the software itself. Some proposed solutions worked immediately; others required multiple revisions or entirely different approaches.
+
+Ultimately, the project changed my understanding of what someone without a programming background could accomplish with these tools.
+
+I'm sharing Brother Studio both as a functional creative application and as an example of what can emerge from this kind of AI-assisted development.
+
+## Credits
 
 Printer communication relies on [brother_ql](https://github.com/pklaus/brother_ql), developed by Philipp Klaus and contributors. Additional dependencies include Flask, Pillow, and PyUSB.
 
